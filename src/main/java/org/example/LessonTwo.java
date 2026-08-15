@@ -6,34 +6,16 @@ public class LessonTwo {
         // I-е задание
         System.out.println("--- Задание №1 ---");
         System.out.println("[Класс 'Product' создан]");
-    }
-}
 
-// I-е задание
-class Product{
-    private String productName;
-    private String manufactureDate;
-    private String manufacturer;
-    private String countryOfOrigin;
-    private double price;
-    private boolean isReserved;
-
-    Product(String productName, String manufactureDate, String manufacturer,
-            String countryOfOrigin, double price, boolean isReserved) {
-        this.productName = productName;
-        this.manufactureDate = manufactureDate;
-        this.manufacturer = manufacturer;
-        this.countryOfOrigin = countryOfOrigin;
-        this.price = price;
-        this.isReserved = isReserved;
-    }
-
-    void printInfoAboutProduct() {
-        System.out.println("Название:                 " + productName);
-        System.out.println("Дата производства:        " + manufactureDate);
-        System.out.println("Производитель:            " + manufacturer);
-        System.out.println("Страна происхождения:     " + countryOfOrigin);
-        System.out.println("Цена:                     " + price);
-        System.out.println("Забронирован покупателем: " + (isReserved ? "Да" : "Нет"));
+        System.out.println("\n--- Задание №2 ---");
+        Product[] productsArray = new Product[5];
+        System.out.println("[Массив из 5 товаров создан]");
+        productsArray[0] = new Product("Samsung S25 Ultra", "01.02.2025", "Samsung Corp.", "Korea", 5599, true);
+        productsArray[1] = new Product("Samsung S25 Ultra", "01.02.2025", "Samsung Corp.", "Korea", 5599, true);
+        productsArray[2] = new Product("Samsung S25 Ultra", "01.02.2025", "Samsung Corp.", "Korea", 5599, true);
+        productsArray[3] = new Product("Samsung S25 Ultra", "01.02.2025", "Samsung Corp.", "Korea", 5599, true);
+        productsArray[4] = new Product("Samsung S25 Ultra", "01.02.2025", "Samsung Corp.", "Korea", 5599, true);
+        System.out.println("[Массив из 5 товаров заполнен]");
+//        productsArray[0].printInfoAboutProduct();
     }
 }
