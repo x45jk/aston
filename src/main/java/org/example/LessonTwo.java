@@ -2,7 +2,7 @@ package org.example;
 
 public class LessonTwo {
     public static void main(String[] args) {
-        System.out.println("===== Домашнее задание к Лекции 2.2 =====");
+        System.out.println("===== Домашнее задание к Лекции 2.3 =====");
 
         // I-е задание
         System.out.println("--- Задание №1 ---");
