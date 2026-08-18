@@ -1,7 +1,7 @@
 package org.example;
 
 public class Dog extends Animal {
-    protected static int numberOfDogs = 0;
+    private static int numberOfDogs = 0;
 
     public Dog(String name) {
         super(name);
@@ -10,21 +10,25 @@ public class Dog extends Animal {
         numberOfDogs++;
     }
 
-    void run(int distance) {
-        if (distance <= runLimit)
+    public void run(int distance) {
+        if (distance <= 0)
+            System.out.println(name + " не может пробежать " + distance + " м.");
+        else if(distance <= runLimit)
             System.out.println(name + " пробежал(а) "  + distance + " м.");
         else if (distance > runLimit)
-            System.out.println(name + " пробежал(а) "  + runLimit + " м и остановился передохнуть.");
-        else
-            System.out.println("Введено неверное значение для дистанции бега.");
+            System.out.println(name + " пробежал(а) "  + runLimit + " м и остановился(-ась).");
     }
 
-    void swim(int distance) {
-        if (distance <= swimLimit)
+    public void swim(int distance) {
+        if (distance <= 0)
+            System.out.println(name + " не может проплыть " + distance + " м.");
+        else if (distance <= swimLimit)
             System.out.println(name + " проплыл(а) "  + distance + " м.");
         else if (distance > swimLimit)
-            System.out.println(name + " проплыл(а) "  + runLimit + " м и остановился передохнуть.");
-        else
-            System.out.println("Введено неверное значение для дистанции заплыва.");
+            System.out.println(name + " проплыл(а) "  + swimLimit + " м и остановился(-ась).");
+    }
+
+    public int getNumberOfDogs() {
+        return numberOfDogs;
     }
 }
