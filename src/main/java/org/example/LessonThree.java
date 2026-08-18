@@ -6,5 +6,7 @@ public class LessonThree {
 
         // I-е задание
         System.out.println("--- Задание №1 ---");
+        System.out.println("[Созданы классы Dog и Cat с наследованием от класса Animal]");
+
     }
 }
