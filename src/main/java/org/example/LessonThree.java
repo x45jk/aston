@@ -11,7 +11,7 @@ public class LessonThree {
         Dog dogBobik = new Dog("Бобик");
         Cat catMurka = new Cat("Мурка");
 
-        /*System.out.println("\n[Проверка пробежки собак]");
+        System.out.println("\n[Проверка пробежки собак]");
         dogBobik.run(-1);
         dogBobik.run(0);
         dogBobik.run(1);
@@ -36,8 +36,7 @@ public class LessonThree {
         catMurka.run(201);
 
         System.out.println("\n[Проверка заплыва кошек]");
-        catMurka.swim();
-        catMurka.swim(1);*/
+        catMurka.swim(1);
 
         System.out.println("\n[Добавлен подсчет количества созданных котов, собак и животных]");
         System.out.println("Общее количество животных: " + dogBobik.getNumberOfAnimals());
@@ -45,14 +44,14 @@ public class LessonThree {
         System.out.println("Общее количество кошек:    " + catMurka.getNumberOfCats());
 
         System.out.println("\n[Добавлена миска и взаимодействие с ним]");
-/*        Bowl bowl15 = new Bowl(15);
+        Bowl bowl15 = new Bowl(15);
         Cat catBarsik = new Cat("Барсик");
         catBarsik.eat(10, bowl15);
         bowl15.addFood(5);
         catBarsik.eat(10, bowl15);
         bowl15.addFood(5);
         catBarsik.eat(10, bowl15);
-        bowl15.addFood(5);*/
+        bowl15.addFood(5);
 
         System.out.println("\n[Создан массив котов и одна миска с едой]");
         Cat[] catsArray = new Cat[5];
@@ -71,9 +70,32 @@ public class LessonThree {
         bowl30.addFood(30);
         catsArray[3].eat(15, bowl30);
         catsArray[4].eat(25, bowl30);
+        catsArray[4].eat(25, bowl30);
 
         System.out.println("\nОбщее количество животных: " + dogBobik.getNumberOfAnimals());
         System.out.println("Общее количество собак:    " + dogBobik.getNumberOfDogs());
         System.out.println("Общее количество кошек:    " + catMurka.getNumberOfCats());
+
+
+        // II-е задание
+        System.out.println("--- Задание №2 ---");
+        Circle c1 = new Circle(3.4, "Красный", "Чёрный");
+        c1.printCircleInfo();
+
+        Rectangle r1 = new Rectangle(3.4, 4.5, "Белый", "Чёрный");
+        r1.printRectangleInfo();
+
+        try {
+            Triangle t0 = new Triangle(1, 4, 5, "Оранжевый", "Чёрный");
+            t0.printTriangleInfo();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        try {
+            Triangle t1 = new Triangle(3, 4, 5, "Оранжевый", "Чёрный");
+            t1.printTriangleInfo();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
     }
 }

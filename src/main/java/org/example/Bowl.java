@@ -1,25 +1,20 @@
 package org.example;
 
-public class Bowl {
-    private int bowlVolume;
+final class Bowl {
+    private final int bowlVolume;
     private int volumeOfFoodInBowl;
 
     public Bowl (int bowlVolume) {
         this.bowlVolume = bowlVolume;
+        this.volumeOfFoodInBowl = 0;
     }
 
-    public int getBowlVolume() {
-        return bowlVolume;
-    }
-
-    public int getVolumeOfFoodInBowl() {
-        return volumeOfFoodInBowl;
-    }
+    public int getVolumeOfFoodInBowl() { return volumeOfFoodInBowl; }
 
     public void addFood(int volumeOfFood) {
         if (bowlVolume == volumeOfFoodInBowl)
             System.out.println("Миска уже полная, в ней " + volumeOfFoodInBowl + " единиц еды.");
-        else if ( (bowlVolume - volumeOfFoodInBowl) >= volumeOfFood) {
+        else if ( (bowlVolume - volumeOfFoodInBowl) >= volumeOfFood ) {
             volumeOfFoodInBowl += volumeOfFood;
             System.out.println("В миску добавили " + volumeOfFood + " единиц еды.");
             getBowlInfo();
