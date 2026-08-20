@@ -2,7 +2,7 @@ package org.example;
 
 public class LessonThree {
     public static void main(String[] args) {
-        System.out.println("===== Домашнее задание к Лекции 2.4 =====");
+/*        System.out.println("===== Домашнее задание к Лекции 2.4 =====");
 
         // I-е задание
         System.out.println("--- Задание №1 ---");
@@ -78,7 +78,7 @@ public class LessonThree {
 
 
         // II-е задание
-        System.out.println("--- Задание №2 ---");
+        System.out.println("\n--- Задание №2 ---");
         Circle c1 = new Circle(3.4, "Красный", "Чёрный");
         c1.printCircleInfo();
 
@@ -96,6 +96,6 @@ public class LessonThree {
             t1.printTriangleInfo();
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка: " + e.getMessage());
-        }
+        }*/
     }
 }

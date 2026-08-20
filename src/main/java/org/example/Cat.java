@@ -19,7 +19,7 @@ final class Cat extends Animal {
 
     @Override
     public void swim(int distance) {
-        super.run(distance);
+        super.swim(distance);
     }
 
     public void eat(int unitsOfFoodToEat, Bowl bowl) {

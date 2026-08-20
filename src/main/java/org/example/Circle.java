@@ -17,8 +17,8 @@ class Circle implements Figure {
         calculateArea();
     }
 
-    protected void calculatePerimeter() { perimeter = 2 * PI * radius; }
-    protected void calculateArea()      { area = PI * radius * radius; }
+    private void calculatePerimeter() { perimeter = 2 * PI * radius; }
+    private void calculateArea()      { area = PI * radius * radius; }
 
     public void printCircleInfo() {
         System.out.println("Характеристики круга:");

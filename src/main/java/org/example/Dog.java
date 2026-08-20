@@ -19,6 +19,6 @@ final class Dog extends Animal {
 
     @Override
     public void swim(int distance) {
-        super.run(distance);
+        super.swim(distance);
     }
 }

@@ -14,7 +14,7 @@ class Triangle implements Figure {
             throw new IllegalArgumentException("Стороны треугольника должны быть положительными числами.");
 
         if (sideOne >= sideTwo + sideThree || sideTwo >= sideOne + sideThree || sideThree >= sideOne + sideTwo) {
-            throw new IllegalArgumentException(String.format("Треугольник со сторонами %.2f-%.2f-%.2f не существует.",
+            throw new IllegalArgumentException(String.format("Треугольник со сторонами %.2f-%.2f-%.2f не может существовать.",
                                                sideOne, sideTwo, sideThree));
         }
 
@@ -28,8 +28,8 @@ class Triangle implements Figure {
         calculateAreaByThreeSide();
     }
 
-    protected void calculatePerimeterByThreeSide() { perimeter = sideOne + sideTwo + sideThree; }
-    protected void calculateAreaByThreeSide() {
+    private void calculatePerimeterByThreeSide() { perimeter = sideOne + sideTwo + sideThree; }
+    private void calculateAreaByThreeSide() {
         double sp = perimeter / 2;
         area = Math.sqrt(sp * (sp - sideOne) * (sp - sideTwo) * (sp - sideThree));
     }

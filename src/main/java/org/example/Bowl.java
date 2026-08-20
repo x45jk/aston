@@ -20,7 +20,7 @@ final class Bowl {
             getBowlInfo();
         } else {
             volumeOfFoodInBowl = bowlVolume;
-            System.out.println("Миска полна еды, теперь в ней " + volumeOfFoodInBowl + " единиц еды.");
+            System.out.println("Миска заполнена до краёв, теперь в ней " + volumeOfFoodInBowl + " единиц еды.");
         }
     }
 
