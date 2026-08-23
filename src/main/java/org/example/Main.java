@@ -1,42 +1,63 @@
 package org.example;
-/*
-Домашнее задание к Лекции 2.5
-Вопросики:
-1.а Нужны ли отдельные классы под MyArraySizeException и MyArrayDataException
-1.б Если да, то наследовать их от Exception или от RuntimeException
-2.а Правильно ли понял: суму значений ячеек массива вернуть в метод main и там вывести в консоль?
-2.б Создавать копию массива или менять текущий?
-2.в Проверять только типы значений char и String (без int, long и т.д.)?
-2.г Выкидывать исключение только на первую ошибку или собрать данные по всем?
-2.д Строку "12 какой_то_текст" не надо пытаться перевести в int?
-*/
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("===== Домашнее задание к Лекции 2.5 =====");
+
+/*        String[][] numberArray4x4 = { {"1", "2", "3", "4"},
+                                      {"5", "6", "7", "8"},
+                                      {"9", "10", "11", "12"},
+                                      {"13", "14", "15", "16"} };
         String[][] array1x1 = new String[1][1];
         String[][] numberArray4x3 = { {"1", "2", "3"},
                                       {"5", "6", "7"},
                                       {"9", "10", "11"},
-                                      {"13", "14", "15"} };
-        String[][] numberArray4x4 = { {"1", "2", "3", "4"},
-                                      {"5", "6", "7", "8"},
-                                      {"9", "10", "11", "12"},
-                                      {"13", "14", "15", "16"} };
+                                      {"13", "14", "15"} };*/
+        String[][] incorrectArray4x4 = { {"1", "2", "3", "4"},
+                                         {"5", "6", "7", "8"},
+                                         {"9", "10O", "11", "12"},
+                                         {"13", "14", "15", "16"} };
 
-
+        // tasks 1-3
+        System.out.println("--- Tasks 1-3 ---");
         try {
-            takeTwoDimensionalStringArrayFourByFour(numberArray4x3);
-        } catch (MyArraySizeException e) {
-            System.out.println("Error: " + e.getMessage());
+            int num = getMatrixSum(incorrectArray4x4);
+            System.out.println("Result: " + num);
+        } catch (MyArraySizeException e) { System.out.println("Size error: " + e.getMessage());
+        } catch (MyArrayDataException e) { System.out.println("Data error: " + e.getMessage()); }
+
+        // task 4
+        System.out.println("\n--- Task 4 ---");
+        try {
+            char[] arr = {'q', 'w', 'e', 'r', 't'};
+            System.out.println(arr[10]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Exception class: " + e.getClass().getName());
+            System.out.println("Message:         " + e.getMessage());
+            System.out.println("Stack trace:");
+            for (StackTraceElement el : e.getStackTrace()) {
+                System.out.println("  - " + el);
+            }
         }
     }
 
-    static void takeTwoDimensionalStringArrayFourByFour(String[][] tdArray) throws MyArraySizeException {
+    static int getMatrixSum(String[][] tdArray) throws MyArraySizeException {
+        int sum = 0;
+
         if (tdArray.length != 4)
             throw new MyArraySizeException();
 
         for (var x : tdArray)
             if (x.length != 4)
                 throw new MyArraySizeException("At least one row has NOfour size.");
+
+        for (int i = 0; i < tdArray.length; i++)
+            for (int j = 0; j < tdArray[i].length; j++)
+                if (tdArray[i][j] != null && !tdArray[i][j].isEmpty() && tdArray[i][j].matches("\\d+"))
+                    sum += Integer.parseInt(tdArray[i][j]);
+                else
+                    throw new MyArrayDataException(i, j);
+
+        return sum;
     }
 }
