@@ -1,10 +1,5 @@
 package org.example;
 
-/*
-1. Каждая программа - отдельный класс?
-2.
- */
-
 public class Main {
     public static void main(String[] args) {
         // factorial
@@ -59,7 +54,7 @@ public class Main {
         }*/
 
         // calculator
-        /*Object[][] expressions = new Object[][]{
+/*        Object[][] expressions = new Object[][]{
                 // positive testing
                 // - addition
                 {2, 3, '+', 5.0},         // a + b
@@ -125,7 +120,7 @@ public class Main {
         }*/
 
         // comparator
-        Object[][] testData = {
+/*        Object[][] testData = {
             // positive testing
             // - a > b
             {5, 3, true},           // positive numbers
@@ -166,6 +161,6 @@ public class Main {
             boolean actual = IntegerComparator.compare(a, b);
 
             System.out.printf("%d > %d = %-5b (expected: %-5b)%n", a, b, actual, expected);
-        }
+        }*/
     }
 }
