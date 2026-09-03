@@ -1,9 +1,12 @@
 package org.example;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UnitTests {
+@DisplayName("====== Tests for the Factorial class ======")
+class FactorialTest {
+
     @Test
     void factorialOfZero_ShouldReturnOne() {
         assertEquals(1L, Factorial.calculate(0));
