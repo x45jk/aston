@@ -73,7 +73,7 @@ public class Main {
                 {13, 0, '-', 13.0},       // a - 0
                 {0, -17, '-', 17.0},      // 0 - -b
                 {0, 0, '-', 0.0},         // 0 - 0
-                {Integer.MIN_VALUE, -1, '-', -2147483647.0}, // Integer.MIN_VALUE - -1
+                {Integer.MIN_VALUE, 1, '-', -2147483647.0}, // Integer.MIN_VALUE - 1
                 // - multiplication
                 {4, 7, '*', 28.0},        // a * b
                 {-5, 5, '*', -25.0},      // -a * b
