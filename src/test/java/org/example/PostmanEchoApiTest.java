@@ -21,12 +21,10 @@ public class PostmanEchoApiTest {
     @Test
     public void testGETRequest() {
         given()
-//            .log().all()
             .log().ifValidationFails()
         .when()
             .get("/get?foo1=bar1&foo2=bar2")
         .then()
-//            .log().all()
             .log().ifValidationFails()
             .statusCode(HttpStatus.SC_OK)
                 .and().body("args.foo1", equalTo("bar1"))
