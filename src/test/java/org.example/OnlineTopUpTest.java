@@ -131,8 +131,8 @@ public class OnlineTopUpTest {
         );
 
         // the link must be visible and enabled before clicking
-        assertTrue(linkAboutService.isDisplayed(), "The link must be visible");
-        assertTrue(linkAboutService.isEnabled(),   "The link must be clickable");
+        assertTrue(linkAboutService.isDisplayed(), "The link «Подробнее о сервисе» must be visible");
+        assertTrue(linkAboutService.isEnabled(),   "The link «Подробнее о сервисе» must be clickable");
 
         // get the href attribute and convert relative URL to absolute
         String expectedHref = linkAboutService.getAttribute("href");
@@ -206,14 +206,15 @@ public class OnlineTopUpTest {
         sumInputField.sendKeys("100");
         assertEquals("100", sumInputField.getAttribute("value"), "Sum field should be filled");
 
-
         // enter email
         WebElement emailInputField = wait.until(ExpectedConditions.elementToBeClickable(By.id("connection-email")));
         emailInputField.sendKeys("1@1.com");
         assertEquals("1@1.com", emailInputField.getAttribute("value"), "Email field should be filled");
 
-        // click button
+        // click button (visible and enabled)
         WebElement button = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#pay-connection button[type='submit']")));
+        assertTrue(button.isDisplayed(), "The button «Продолжить» must be visible");
+        assertTrue(button.isEnabled(),   "The button «Продолжить» must be clickable");
         button.click();
 
         // wait for the payment widget iframe to appear after clicking the button
