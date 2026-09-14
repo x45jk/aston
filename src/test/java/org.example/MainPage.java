@@ -8,7 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainPage {
     // create variables for the browser controller and for explicit waits
@@ -41,7 +43,42 @@ public class MainPage {
     private static final By submitButtonLocator = By.cssSelector("#pay-connection button[type='submit']");
         // (L) the iframe element with card payment requests
     private static final By paymentIframeLocator = By.xpath("//iframe[@class='payment-widget-iframe']");
-        // (L)
+        // (L) {serviceItem, field locator, expected placeholder}
+    private static final Map<String, Map<By, String>> placeholderMapLocator = Map.of(
+            "Услуги связи", Map.of(
+
+                    By.id("connection-phone"), "Номер телефона",
+                    By.id("connection-sum"), "Сумма",
+                    By.id("connection-email"), "E-mail для отправки чека"
+            ),
+            "Домашний интернет", Map.of(
+                    By.id("internet-phone"), "Номер абонента",
+                    By.id("internet-sum"), "Сумма",
+                    By.id("internet-email"), "E-mail для отправки чека"
+            ),
+            "Рассрочка", Map.of(
+                    By.id("score-instalment"), "Номер счета на 44",
+                    By.id("instalment-sum"), "Сумма",
+                    By.id("instalment-email"), "E-mail для отправки чека"
+            ),
+            "Задолженность", Map.of(
+                    By.id("score-arrears"), "Номер счета на 2073",
+                    By.id("arrears-sum"), "Сумма",
+                    By.id("arrears-email"), "E-mail для отправки чека"
+            )
+    );
+        // (L) {field locator, expected 'placeholder'}
+    private static final Map<By, String> paymentIframeMapLocator = Map.ofEntries(
+        Map.entry(By.xpath("//span[@class='ng-star-inserted']"), "100.00"),
+        Map.entry(By.xpath("//button[contains(@class, 'colored')]/span"), "100.00"),
+        Map.entry(By.xpath("//div[@class='pay-description__text']/span"), "297777777"),
+        Map.entry(By.xpath("//input[@id='cc-number']/following-sibling::label"), "Номер карты"),
+        Map.entry(By.xpath("//input[@formcontrolname='expirationDate']/following-sibling::label"), "Срок действия"),
+        Map.entry(By.xpath("//input[@formcontrolname='cvc']/following-sibling::label"), "CVC"),
+        Map.entry(By.xpath("//input[@formcontrolname='holder']/following-sibling::label"), "Имя и фамилия на карте")
+    );
+        // (L) payment iframe logos
+    private static final By paymentIframeLogosLocator = By.xpath("//div[contains(@class, 'cards-brands')]//img");
 
     //===== constructor
         // (C) set explicit wait timeout (10 seconds)
@@ -75,6 +112,22 @@ public class MainPage {
     private boolean isDisplayed(By locator) {
         //return driver.findElement(locator).isDisplayed();
         return waitForVisible(locator).isDisplayed();
+    }
+        // (M) get placeholder map
+    public Map<String, Map<By, String>> getPlaceholderMapLocator() {
+        return placeholderMapLocator;
+    }
+        // (M) get placeholder value
+    public String getPlaceholderById(By fieldLocator) {
+        return waitForVisible(fieldLocator).getAttribute("placeholder");
+    }
+        // (M) get iframe map
+    public Map<By, String> getPaymentIframeMapLocator() {
+        return paymentIframeMapLocator;
+    }
+        // (M) get payment iframe fields values
+    public String getIframeFieldTextById(By fieldLocator) {
+        return waitForVisible(fieldLocator).getText().trim();
     }
 
     //===== actions
@@ -198,5 +251,13 @@ public class MainPage {
         // (A) check that the submit button is enabled and can be clicked
     public boolean isSubmitButtonEnabled() {
         return waitForVisible(sumFieldLocator).isEnabled();
+    }
+        // (A)
+    public void switchToIframe() {
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(paymentIframeLocator));
+    }
+        // (A) get the list of payment logos
+    public List<WebElement> getPaymentIframeLogos() {
+        return waitForVisibleAllElements(paymentIframeLogosLocator);
     }
 }

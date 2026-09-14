@@ -2,11 +2,14 @@ package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -141,5 +144,99 @@ public class OnlineTopUpTest {
 
         // wait for the payment widget iframe to appear after clicking the button
         assertTrue(mainPage.isPaymentIframeVisible(), "Payment widget iframe should appear");
+    }
+
+    @Test
+    @DisplayName("Check the placeholders in the blank fields for each payment option")
+    void checkPlaceholdersOfEachPaymentOption() {
+        Map<String, Map<By, String>> placeholder = mainPage.getPlaceholderMapLocator();
+
+        for (Map.Entry<String, Map<By, String>> serviceEntry : placeholder.entrySet()) {
+            String serviceName = serviceEntry.getKey();
+            Map<By, String> fieldsMap = serviceEntry.getValue();
+
+            mainPage.selectDropdownOption(serviceName);
+
+            for (Map.Entry<By, String> field : fieldsMap.entrySet()) {
+                By fieldLocator = field.getKey();
+                String expectedPlaceholder = field.getValue();
+
+                String actualPlaceholder = mainPage.getPlaceholderById(fieldLocator);
+                assertEquals(actualPlaceholder, expectedPlaceholder,
+                        "Each placeholder must have valid value. Expected: " + expectedPlaceholder +
+                                                                      ", actual: " + actualPlaceholder);
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("Check payment iframe elements are displayed correctly")
+    void checkPaymentIframeElementsDisplayedCorrectly() {
+        String expectedItemText = "Услуги связи";           // check dropdown value
+
+        // select dropdown option (if not already selected)
+        mainPage.selectDropdownOption(expectedItemText);
+
+        // verify the dropdown displays the expected value
+        assertEquals(expectedItemText, mainPage.getSelectedDropdownValue(),
+                "Expected dropdown value: '" + expectedItemText + "'");
+
+        // enter phone number
+        mainPage.enterPhone("297777777");
+        assertEquals("(29)777-77-77", mainPage.getPhoneValue(), "Phone field should be filled");
+
+        // enter sum
+        mainPage.enterSum("100");
+        assertEquals("100", mainPage.getSumValue(), "Sum field should be filled");
+
+        // enter email
+        mainPage.enterEmail("1@1.com");
+        assertEquals("1@1.com", mainPage.getEmailValue(), "Email field should be filled");
+
+        // verify button is visible and enabled
+        assertTrue(mainPage.isSubmitButtonVisible(), "The button «Продолжить» must be visible");
+        assertTrue(mainPage.isSubmitButtonEnabled(), "The button «Продолжить» must be clickable");
+
+        // click button
+        mainPage.clickSubmit();
+
+        // wait for the payment widget iframe to appear after clicking the button
+        assertTrue(mainPage.isPaymentIframeVisible(), "Payment widget iframe should appear");
+
+        mainPage.switchToIframe();
+
+        Map<By, String> paymentIframeMap = mainPage.getPaymentIframeMapLocator();
+        for (Map.Entry<By, String> entry : paymentIframeMap.entrySet()) {
+            By fieldLocator = entry.getKey();
+            String expectedText = entry.getValue();
+
+            String actualText = mainPage.getIframeFieldTextById(fieldLocator);
+            assertTrue(actualText.contains(expectedText), "Each placeholder must have valid value. Expected: " + expectedText +
+                                                                                                        ", actual: " + actualText);
+        }
+
+
+        //
+        List<WebElement> logosImg = mainPage.getPaymentIframeLogos();
+
+        // there must be exactly 5 logos
+        assertEquals(5, logosImg.size(), "There must be 5 payment system logos");
+
+        // iterate through each logo and verify its loaded state
+        for (WebElement logo : logosImg) {
+            String srcAttribute = logo.getAttribute("src");
+
+            // verify 'src' attribute is present and not empty
+            assertNotNull(srcAttribute, "The 'src' attribute is missing for one of the logos");
+            assertFalse(srcAttribute.isEmpty(), "The 'src' attribute is empty for one of the logos");
+
+            // maestro logo switches to mir logo and back
+            //assertTrue(logo.isDisplayed(), "The logo '" + srcAttribute + "' is not displayed");
+
+            // verify image is actually loaded via JS
+            assertTrue(mainPage.isLoadedImg(logo), "The logo '" + srcAttribute + "' is broken");
+        }
+
+        driver.switchTo().defaultContent();
     }
 }
