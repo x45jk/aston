@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -252,12 +251,16 @@ public class MainPage {
     public boolean isSubmitButtonEnabled() {
         return waitForVisible(sumFieldLocator).isEnabled();
     }
-        // (A)
+        // (A) switch the driver's focus inside the iframe
     public void switchToIframe() {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(paymentIframeLocator));
     }
         // (A) get the list of payment logos
     public List<WebElement> getPaymentIframeLogos() {
         return waitForVisibleAllElements(paymentIframeLogosLocator);
+    }
+        // (A) back to the top-level main page
+    public void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
     }
 }

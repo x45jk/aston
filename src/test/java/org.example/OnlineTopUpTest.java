@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.Map;
@@ -203,8 +202,10 @@ public class OnlineTopUpTest {
         // wait for the payment widget iframe to appear after clicking the button
         assertTrue(mainPage.isPaymentIframeVisible(), "Payment widget iframe should appear");
 
+        // switch the driver's focus inside the iframe
         mainPage.switchToIframe();
 
+        // get a list of locators for the payment iframe
         Map<By, String> paymentIframeMap = mainPage.getPaymentIframeMapLocator();
         for (Map.Entry<By, String> entry : paymentIframeMap.entrySet()) {
             By fieldLocator = entry.getKey();
@@ -215,8 +216,7 @@ public class OnlineTopUpTest {
                                                                                                         ", actual: " + actualText);
         }
 
-
-        //
+        // get the list of payment logos
         List<WebElement> logosImg = mainPage.getPaymentIframeLogos();
 
         // there must be exactly 5 logos
@@ -237,6 +237,7 @@ public class OnlineTopUpTest {
             assertTrue(mainPage.isLoadedImg(logo), "The logo '" + srcAttribute + "' is broken");
         }
 
-        driver.switchTo().defaultContent();
+        // back to the top-level main page
+        mainPage.switchToDefaultContent();
     }
 }
