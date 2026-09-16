@@ -1,5 +1,6 @@
 package org.example;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -131,11 +132,13 @@ public class MainPage {
 
     //===== actions
     // (A) open the page in an active browser window at the specified URL
+    @Step("Открыть страницу: {url}")
     public MainPage open(String url) {
         driver.get(url);
         return this;
     }
     // (A) try to accept cookies
+    @Step("Принять cookies, если баннер появился")
     public MainPage acceptCookiesIfPresent() {
         try {
             click(cookieAgreeButtonLocator);
@@ -151,23 +154,28 @@ public class MainPage {
         waitForClickable(locator).click();
     }
     // (A) get the visible text of the element specified by the locator
+    @Step("Получить название блока оплаты")
     public String getBlockName() {
         return getText(blockHeaderLocator);
     }
     // (A) get the list of elements specified by the locator
+    @Step("Получить список логотипов партнёров")
     public List<WebElement> getPartnerLogos() {
         return waitForVisibleAllElements(partnerLogosLocator);
     }
     // (A) check if an image is fully loaded and visible on a webpage by reading its natural pixel dimensions
+    @Step("Проверить, что изображение загружено")
     public boolean isLoadedImg(WebElement logo) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return (Boolean) js.executeScript("return arguments[0].naturalWidth > 0 && arguments[0].naturalHeight > 0;", logo);
     }
     // (A) get the clickable link
+    @Step("Получить ссылку «Подробнее о сервисе»")
     public WebElement getElementMoreAboutServiceLink() {
         return waitForClickable(moreAboutServiceLinkLocator);
     }
     // (A) return an absolute path
+    @Step("Преобразовать относительный путь '{path}' в абсолютный")
     public String getAbsolutePath(String path) {
         if (path != null && path.startsWith("/"))
             return "https://www.mts.by" + path;
@@ -175,6 +183,7 @@ public class MainPage {
             return path;
     }
     // (A) click a link and wait until the browser successfully loads the new page
+    @Step("Кликнуть по ссылке и дождаться загрузки страницы")
     public void clickLinkAndWait(WebElement link) {
         link.click();       // click the link
 
@@ -184,10 +193,12 @@ public class MainPage {
         wait.until(ExpectedConditions.titleContains("Порядок оплаты"));
     }
     // (A) get the currently selected value from the dropdown
+    @Step("Получить выбранное значение в выпадающем списке")
     public String getSelectedDropdownValue() {
         return getText(dropdownSelectedItemLocator).trim();
     }
     // (A) switch to the required option if it is not selected
+    @Step("Выбрать услугу '{selectedItem}' в выпадающем списке")
     public MainPage selectDropdownOption(String selectedItem) {
         if (!getSelectedDropdownValue().equals(selectedItem)) {
             click(dropdownArrowLocator);                    // expand the dropdown list
@@ -205,61 +216,74 @@ public class MainPage {
         return this;
     }
     // (A) enter the phone number in the phone field
+    @Step("Ввести номер телефона: {phone}")
     public MainPage enterPhone(String phone) {
         WebElement field = waitForClickable(phoneFieldLocator);
         field.sendKeys(phone);
         return this;
     }
     // (A) get the phone field value
+    @Step("Получить значение поля «Телефон»")
     public String getPhoneValue() {
         return waitForVisible(phoneFieldLocator).getAttribute("value");
     }
     // (A) enter the sum number in the sum field
+    @Step("Ввести сумму: {sum}")
     public MainPage enterSum(String sum) {
         WebElement field = waitForClickable(sumFieldLocator);
         field.sendKeys(sum);
         return this;
     }
     // (A) get the sum field value
+    @Step("Получить значение поля «Сумма»")
     public String getSumValue() {
         return waitForVisible(sumFieldLocator).getAttribute("value");
     }
     // (A) enter the email number in the email field
+    @Step("Ввести email: {email}")
     public MainPage enterEmail(String email) {
         WebElement field = waitForClickable(emailFieldLocator);
         field.sendKeys(email);
         return this;
     }
     // (A) get the sum field value
+    @Step("Получить значение поля «Email»")
     public String getEmailValue() {
         return waitForVisible(emailFieldLocator).getAttribute("value");
     }
     // (A) click to the button
+    @Step("Нажать кнопку «Продолжить»")
     public MainPage clickSubmit() {
         click(submitButtonLocator);
         return this;
     }
     // (A) check that the payment widget iframe is visible on the page
+    @Step("Проверить, что виджет оплаты виден")
     public boolean isPaymentIframeVisible() {
         return isDisplayed(paymentIframeLocator);
     }
     // (A) check that the submit button is visible on the page
+    @Step("Проверить, что кнопка «Продолжить» видна")
     public boolean isSubmitButtonVisible() {
         return isDisplayed(sumFieldLocator);
     }
     // (A) check that the submit button is enabled and can be clicked
+    @Step("Проверить, что кнопка «Продолжить» активна")
     public boolean isSubmitButtonEnabled() {
         return waitForVisible(sumFieldLocator).isEnabled();
     }
     // (A) switch the driver's focus inside the iframe
+    @Step("Переключить фокус в виджет оплаты")
     public void switchToIframe() {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(paymentIframeLocator));
     }
     // (A) get the list of payment logos
+    @Step("Получить список логотипов платёжных систем внутри iframe")
     public List<WebElement> getPaymentIframeLogos() {
         return waitForVisibleAllElements(paymentIframeLogosLocator);
     }
     // (A) back to the top-level main page
+    @Step("Вернуться в основной контент страницы")
     public void switchToDefaultContent() {
         driver.switchTo().defaultContent();
     }
